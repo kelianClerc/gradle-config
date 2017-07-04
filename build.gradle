@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'com.tmiyamon'
-version '0.3.0-SNAPSHOT'
+version '1.0.0-SNAPSHOT'
 
 sourceCompatibility = 1.6
 
@@ -27,7 +27,7 @@ sourceSets {
 dependencies {
     compile gradleApi()
     compile localGroovy()
-    provided 'com.android.tools.build:gradle:1.+'
+    provided 'com.android.tools.build:gradle:2.2.3'
     compile 'org.yaml:snakeyaml:1.14'
 }
 

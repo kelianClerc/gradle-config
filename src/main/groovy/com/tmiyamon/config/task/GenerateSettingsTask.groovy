@@ -3,6 +3,7 @@ package com.tmiyamon.config.task
 import com.tmiyamon.config.SettingsClassGenerator
 import com.tmiyamon.config.Util
 import org.gradle.api.DefaultTask
+import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.OutputDirectory
@@ -11,6 +12,9 @@ import org.gradle.api.tasks.TaskAction
 import org.yaml.snakeyaml.Yaml
 
 public class GenerateSettingsTask extends DefaultTask {
+
+    public static final LOG = Logging.getLogger(GenerateSettingsTask)
+
     @Input
     String packageName
 
@@ -42,6 +46,7 @@ public class GenerateSettingsTask extends DefaultTask {
 
     @TaskAction
     def taskAction() {
+        LOG.info("Generate Setting for variant: $variantDirName")
         def yaml = new Yaml()
         def settingMaps = settingsFiles().collect { loadConfig(yaml, it) }
 
