@@ -39,7 +39,7 @@ class ConfigPlugin implements Plugin<Project> {
         if (projectType) {
             registerSettingsCodeGenerationTask(project, projectType)
         } else {
-            LOG.warn("Config plugin supports only android.application and android.library projects.")
+            LOG.warn("Config plugin supports only com.android.application and com.android.library projects.")
         }
     }
 
