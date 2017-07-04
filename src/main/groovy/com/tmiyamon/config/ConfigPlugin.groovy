@@ -15,15 +15,21 @@ class ConfigPlugin implements Plugin<Project> {
 
     enum ProjectType {
 
-        ANDROID_APPLICATION('com.android.application', AppExtension),
-        ANDROID_LIBRARY('com.android.library', LibraryExtension)
+        ANDROID_APPLICATION('com.android.application',
+                            AppExtension,
+                {extension -> return extension.applicationVariants }),
+        ANDROID_LIBRARY('com.android.library',
+                LibraryExtension,
+                {extension -> return extension.libraryVariants })
 
         final String pluginId
         final Class extensionType
+        final Closure fetchVariants
 
-        ProjectType(String pluginId, Class extensionType) {
+        ProjectType(String pluginId, Class extensionType, Closure fetchVariants) {
             this.pluginId = pluginId
             this.extensionType = extensionType
+            this.fetchVariants = fetchVariants
         }
     }
 
@@ -42,22 +48,15 @@ class ConfigPlugin implements Plugin<Project> {
     }
 
     private def registerSettingsCodeGenerationTask(Project project, ProjectType projectType) {
-        project.plugins.withId(projectType.pluginId) {
-            project.extensions
-                    .getByType(projectType.extensionType)
-                    .libraryVariants.all {
-                        registerSettingsCodeGenerationTask(project, it)
+        def androidExtension = project.extensions.getByType(projectType.extensionType)
+        def sourceSets = androidExtension.sourceSets
+        projectType.fetchVariants(androidExtension)
+                    .all { variant ->
+                        def task = createCodeGenerationTask(project, variant)
+                        variant.registerJavaGeneratingTask(task, task.outputDir())
+                        sourceSets[variant.name].java.srcDirs += [task.outputDir()]
                     }
-        }
     }
-
-    private def registerSettingsCodeGenerationTask(Project project, BaseVariant variant) {
-        def task = createCodeGenerationTask(project, variant)
-
-        variant.registerJavaGeneratingTask(task, task.outputDir())
-        android.sourceSets[variant.name].java.srcDirs += [task.outputDir()]
-    }
-
 
     private Task createCodeGenerationTask(Project project, BaseVariant variant) {
         project.tasks.create(
