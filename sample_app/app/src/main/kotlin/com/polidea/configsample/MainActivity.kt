@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         R.id.appProperty.setText(Settings.properties.property_1)
         R.id.libVariant.setText(LibSettings().buildVariant)
         R.id.libProperty.setText(LibSettings().propertyValue)
+
+
     }
 
     private fun Int.setText(text: String) {
