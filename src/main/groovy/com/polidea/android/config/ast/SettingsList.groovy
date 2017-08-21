@@ -1,4 +1,4 @@
-package com.tmiyamon.config.ast
+package com.polidea.android.config.ast
 
 class SettingsList implements SettingsElement {
     List<String> keys

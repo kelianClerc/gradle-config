@@ -1,10 +1,10 @@
-package com.tmiyamon.config
+package com.polidea.android.config
 
-import com.tmiyamon.config.ast.SettingsClass
-import com.tmiyamon.config.ast.SettingsElement
-import com.tmiyamon.config.ast.SettingsField
-import com.tmiyamon.config.ast.SettingsList
-import com.tmiyamon.config.ast.SettingsRootClass
+import com.polidea.android.config.ast.SettingsClass
+import com.polidea.android.config.ast.SettingsElement
+import com.polidea.android.config.ast.SettingsField
+import com.polidea.android.config.ast.SettingsList
+import com.polidea.android.config.ast.SettingsRootClass
 
 class SettingsClassGenerator {
     public static SettingsElement buildAST(Map<String, Object> parsedYaml) {

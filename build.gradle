@@ -1,12 +1,11 @@
-
 plugins {
     id 'groovy'
     id 'maven'
     id "com.gradle.plugin-publish" version "0.9.1"
 }
 
-group 'com.tmiyamon'
-version '1.0.0-SNAPSHOT'
+group = 'com.polidea.android'
+version = '1.0.0'
 
 sourceCompatibility = 1.6
 
@@ -32,22 +31,27 @@ dependencies {
 }
 
 pluginBundle {
-  website = 'https://github.com/tmiyamon/gradle-config'
-  vcsUrl = 'https://github.com/tmiyamon/gradle-config'
+  website = 'https://github.com/Polidea/gradle-config'
+  vcsUrl = 'https://github.com/Polidea/gradle-config'
   description = 'Gradle plugin to add multi-variants yaml settings to Android.'
-  tags = ['gradle', 'plugin', 'android']
+  tags = ['gradle', 'plugin', 'android', 'config']
 
   plugins {
     configPlugin {
-      id = 'com.tmiyamon.config'
-      displayName = 'Gradle Config plugin'
+      id = 'com.polidea.android.config'
+      displayName = 'Gradle Config plugin for android applications and libraries.'
     }
   }
+
+    mavenCoordinates {
+        groupId = "com.polidea.android"
+        artifactId = "config"
+    }
 }
 
 install {
     repositories.mavenInstaller {
         pom.version = project.version
-        pom.artifactId = 'gradle-config'
+        pom.artifactId = 'config'
     }
 }

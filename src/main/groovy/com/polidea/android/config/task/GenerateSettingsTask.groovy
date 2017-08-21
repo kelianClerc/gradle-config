@@ -1,7 +1,7 @@
-package com.tmiyamon.config.task
+package com.polidea.android.config.task
 
-import com.tmiyamon.config.SettingsClassGenerator
-import com.tmiyamon.config.Util
+import com.polidea.android.config.SettingsClassGenerator
+import com.polidea.android.config.Util
 import org.gradle.api.DefaultTask
 import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.Input

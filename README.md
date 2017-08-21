@@ -12,18 +12,19 @@ buildscript {
     }
   }
   dependencies {
-    classpath "gradle.plugin.com.tmiyamon:gradle-config:0.2.1"
+    classpath "com.polidea:gradle-config:1.0.0"
   }
 }
 
+
 apply plugin: 'com.android.application'
-apply plugin: "com.tmiyamon.config"
+apply plugin: "com.polidea.android.config"
 ```
 
 Build script snippet for new, incubating, plugin mechanism introduced in Gradle 2.1:
 ```
 plugins {
-  id "com.tmiyamon.config" version "0.2.1"
+  id "com.polidea.android.config" version "1.0.0"
 }
 ```
 

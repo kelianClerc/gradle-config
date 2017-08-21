@@ -1,7 +1,7 @@
-package com.tmiyamon.config
+package com.polidea.android.config
 
 import com.android.build.gradle.LibraryExtension
-import com.tmiyamon.config.task.GenerateSettingsTask
+import com.polidea.android.config.task.GenerateSettingsTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import com.android.build.gradle.api.BaseVariant

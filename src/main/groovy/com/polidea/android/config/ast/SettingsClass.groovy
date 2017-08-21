@@ -1,6 +1,6 @@
-package com.tmiyamon.config.ast
+package com.polidea.android.config.ast
 
-import com.tmiyamon.config.Util
+import com.polidea.android.config.Util
 
 class SettingsClass implements SettingsElement {
     List<String> keys
@@ -19,7 +19,6 @@ class SettingsClass implements SettingsElement {
 
     @Override
     String name() {
-//        Util.camelize(key)
         keys.last()
     }
 
