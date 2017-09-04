@@ -167,6 +167,7 @@ Sometimes Android Studio does not detect generated Settings class. When you fact
 
 ## License
 ```
+Copyright 2017 Polidea
 Copyright 2015 Takuya Miyamoto
 
 Licensed under the Apache License, Version 2.0 (the "License");
