@@ -12,7 +12,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "com.polidea:gradle-config:1.0.0"
+    classpath "com.polidea.android:config:1.0.0"
   }
 }
 
