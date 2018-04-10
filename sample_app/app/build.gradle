@@ -8,18 +8,18 @@ buildscript {
         }
     }
     dependencies {
-        classpath "com.polidea.android:config:1.0.0"
+        classpath "com.sjcqs.android:config:1.0.0"
     }
 }
 
-apply plugin: "com.polidea.android.config"
+apply plugin: "com.sjcqs.android.config"
 
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
-        applicationId "com.polidea.configsample"
+        applicationId "com.sjcqs.configsample"
         minSdkVersion 22
         targetSdkVersion 25
         versionCode 1

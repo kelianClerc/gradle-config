@@ -12,19 +12,19 @@ buildscript {
     }
   }
   dependencies {
-    classpath "com.polidea.android:config:1.0.0"
+    classpath "com.sjcqs.android:config:1.0.0"
   }
 }
 
 
 apply plugin: 'com.android.application'
-apply plugin: "com.polidea.android.config"
+apply plugin: "com.sjcqs.android.config"
 ```
 
 Build script snippet for new, incubating, plugin mechanism introduced in Gradle 2.1:
 ```
 plugins {
-  id "com.polidea.android.config" version "1.0.0"
+  id "com.sjcqs.android.config" version "1.0.0"
 }
 ```
 
@@ -53,6 +53,7 @@ config/${productFlavor}.yml
 config/${productFlavor}_secret.yml
 config/${buildType}.yml
 config/${buildType}_secret.yml
+config/${dimension}.yml
 ```
 
 The lower one overwrites upper one deeply. The purpose of loading settings files with suffix `_secret` is to avoid to commit the secret files to remote repository. If you want to use this feature, don't forget to include those files to your `.gitignore`:
@@ -167,6 +168,7 @@ Sometimes Android Studio does not detect generated Settings class. When you fact
 
 ## License
 ```
+Copyright 2018 sjcqs
 Copyright 2017 Polidea
 Copyright 2015 Takuya Miyamoto
 

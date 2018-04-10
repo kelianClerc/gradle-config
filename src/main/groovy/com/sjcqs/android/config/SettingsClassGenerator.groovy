@@ -1,10 +1,10 @@
-package com.polidea.android.config
+package com.sjcqs.android.config
 
-import com.polidea.android.config.ast.SettingsClass
-import com.polidea.android.config.ast.SettingsElement
-import com.polidea.android.config.ast.SettingsField
-import com.polidea.android.config.ast.SettingsList
-import com.polidea.android.config.ast.SettingsRootClass
+import com.sjcqs.android.config.ast.SettingsClass
+import com.sjcqs.android.config.ast.SettingsElement
+import com.sjcqs.android.config.ast.SettingsField
+import com.sjcqs.android.config.ast.SettingsList
+import com.sjcqs.android.config.ast.SettingsRootClass
 
 class SettingsClassGenerator {
     public static SettingsElement buildAST(Map<String, Object> parsedYaml) {

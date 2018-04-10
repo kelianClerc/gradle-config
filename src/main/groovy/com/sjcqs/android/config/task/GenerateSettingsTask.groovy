@@ -1,7 +1,7 @@
-package com.polidea.android.config.task
+package com.sjcqs.android.config.task
 
-import com.polidea.android.config.SettingsClassGenerator
-import com.polidea.android.config.Util
+import com.sjcqs.android.config.SettingsClassGenerator
+import com.sjcqs.android.config.Util
 import org.gradle.api.DefaultTask
 import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.Input

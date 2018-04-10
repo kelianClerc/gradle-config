@@ -1,4 +1,4 @@
-package com.polidea.android.config.ast
+package com.sjcqs.android.config.ast
 
 class SettingsRootClass implements SettingsElement {
     List<SettingsElement> children

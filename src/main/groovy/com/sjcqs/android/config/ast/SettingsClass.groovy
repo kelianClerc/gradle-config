@@ -1,6 +1,6 @@
-package com.polidea.android.config.ast
+package com.sjcqs.android.config.ast
 
-import com.polidea.android.config.Util
+import com.sjcqs.android.config.Util
 
 class SettingsClass implements SettingsElement {
     List<String> keys

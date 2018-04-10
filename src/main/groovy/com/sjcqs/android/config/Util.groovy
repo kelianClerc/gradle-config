@@ -1,4 +1,4 @@
-package com.polidea.android.config
+package com.sjcqs.android.config
 
 class Util {
 	public static String camelize(String cmdName, boolean firstUpper = false) {

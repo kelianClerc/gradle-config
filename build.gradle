@@ -4,7 +4,7 @@ plugins {
     id "com.gradle.plugin-publish" version "0.9.7"
 }
 
-group = 'com.polidea.android'
+group = 'com.sjcqs.android'
 version = '1.0.0'
 
 sourceCompatibility = 1.6
@@ -31,20 +31,20 @@ dependencies {
 }
 
 pluginBundle {
-  website = 'https://github.com/Polidea/gradle-config'
-  vcsUrl = 'https://github.com/Polidea/gradle-config'
+  website = 'https://github.com/sjcqs/gradle-config'
+  vcsUrl = 'https://github.com/sjcqs/gradle-config'
   description = 'Gradle plugin to add multi-variants yaml settings to Android.'
   tags = ['gradle', 'plugin', 'android', 'config']
 
   plugins {
     configPlugin {
-      id = 'com.polidea.android.config'
+      id = 'com.sjcqs.android.config'
       displayName = 'Gradle Config plugin for android applications and libraries.'
     }
   }
 
     mavenCoordinates {
-        groupId = "com.polidea.android"
+        groupId = "com.sjcqs.android"
         artifactId = "config"
     }
 }

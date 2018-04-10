@@ -1,4 +1,4 @@
-package com.polidea.android.config.ast
+package com.sjcqs.android.config.ast
 
 class SettingsList implements SettingsElement {
     List<String> keys
