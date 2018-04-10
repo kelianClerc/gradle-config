@@ -59,6 +59,10 @@ class ConfigPlugin implements Plugin<Project> {
     }
 
     private Task createCodeGenerationTask(Project project, BaseVariant variant) {
+        def dimensions = []
+        variant.productFlavors.each {
+            dimensions << it.name
+        }
         project.tasks.create(
                 name: "generate${variant.name.capitalize()}Settings",
                 type: GenerateSettingsTask) {
@@ -66,6 +70,7 @@ class ConfigPlugin implements Plugin<Project> {
             flavorName variant.flavorName
             buildTypeName variant.buildType.name
             variantDirName variant.dirName
+            dimensionNames dimensions
         }
     }
 }

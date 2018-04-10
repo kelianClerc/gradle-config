@@ -27,9 +27,14 @@ public class GenerateSettingsTask extends DefaultTask {
     @Input
     def variantDirName
 
+    @Input
+    def dimensionNames
+
     @InputFiles
     def settingsFiles() {
-        ['default', flavorName, buildTypeName].collect { [it, "${it}_secret"] }.flatten().collect {
+        ['default', flavorName, buildTypeName, dimensionNames].collect { [it, "${it}_secret"] }
+                .flatten()
+                .collect {
             project.file(Util.pathJoin('config', "${it}.yml"))
         }
     }
