@@ -62,6 +62,10 @@ The lower one overwrites upper one deeply. The purpose of loading settings files
 *_secret.yml
 ```
 
+For flavor dimensions, the last dimension overwrite the previous ones in:
+```
+flavorDimension "dim1", "dim2"
+```
 
 ## Accessing Configuration Settings
 
