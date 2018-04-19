@@ -60,7 +60,7 @@ class ConfigPlugin implements Plugin<Project> {
 
     private Task createCodeGenerationTask(Project project, BaseVariant variant) {
         def dimensions = []
-        variant.productFlavors.each {
+        variant.productFlavors.reverseEach {
             dimensions << it.name
         }
         project.tasks.create(
