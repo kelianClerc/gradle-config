@@ -49,22 +49,90 @@ Config entries are generated from:
 ```
 config/default.yml
 config/default_secret.yml
+config/${dimension}.yml
 config/${productFlavor}.yml
 config/${productFlavor}_secret.yml
 config/${buildType}.yml
 config/${buildType}_secret.yml
-config/${dimension}.yml
 ```
 
-The lower one overwrites upper one deeply. The purpose of loading settings files with suffix `_secret` is to avoid to commit the secret files to remote repository. If you want to use this feature, don't forget to include those files to your `.gitignore`:
+Entries are generated using the current build variant. There are merged and the lower one 
+overwrites upper one deeply.
+Left-most flavors dimensions overwrite the others ones.
+
+Example:
+
+- build.gradle 
+```groovy
+flavorDimensions "brand", "environment" 
+productFlavors {
+        brand1 {
+            dimension "brand"
+            // ...
+        }
+        brand2 {
+            dimension "brand"
+            // ...
+        }
+        stubs {
+            dimension "environment"
+            // ...
+        }
+        preprod {
+            dimension "environment"
+            // ...
+        }
+        prod {
+            dimension "environment"
+            // ...
+        }
+    }
+``` 
+- config/
+```yaml
+// default.yml
+section_1:
+  entry_1: "Hello"
+  entry_2: "world"
+entry_3: 94
+section_2:
+  entry_1: "John"
+  entry_2: "Doe" 
+entry_4: "Some value"
+// brand1.yml
+section_1:
+  entry_2: "tom"
+// brand2.yml
+section_2:
+  entry_1: "Jane"
+// stubs.yml
+entry_3: 24
+section_1:
+  entry_2: "Pete"
+// debug.yml
+section_2:
+  entry_1: "Paul"
+  entry_2: "Johson"
+// brand1StubsDebug.yml
+entry_3: 42
+```
+
+On compilation the following ````Settings```` will be generated for ```brand1StubsDebug``` build 
+variant.
+
+```java
+Settings.section_1.entry_1; // => Hello in default.yml
+Settings.section_1.entry_2; // => Pete ovewritten by brand1.yml
+Settings.entry_3; // => 42 overwritten by brand1StubsDebug.yml
+Settings.section_2.entry_1; // => Paul overwritten by debug.yml
+Settings.section_2.entry_2; // => Johnson overwritter by debug.yml
+Settings.entry_4; // => Some value original value
+```
+
+The purpose of loading settings files with suffix `_secret` is to avoid to commit the secret files to remote repository. If you want to use this feature, don't forget to include those files to your `.gitignore`:
 
 ```
 *_secret.yml
-```
-
-For flavor dimensions, the last dimension overwrite the previous ones in:
-```
-flavorDimension "dim1", "dim2"
 ```
 
 ## Accessing Configuration Settings
