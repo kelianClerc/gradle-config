@@ -3,8 +3,8 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
 version: 2
-jobs:
-  build:
+executors:
+  default_executor:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk
@@ -21,6 +21,9 @@ jobs:
       JVM_OPTS: -Xmx3200m
       TERM: dumb
 
+commands:
+  checkout_and_check_dependencies:
+    description: "Checkout project and download dependencies"
     steps:
       - checkout
 
@@ -38,5 +41,23 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
 
-      # run tests!
+jobs:
+  build:
+    executor: default_executor
+    steps:
+      - checkout_and_check_dependencies
+      - run: gradle clean assemble
+  test:
+    executor: default_executor
+    steps:
+      - checkout_and_check_dependencies
       - run: gradle test
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
