@@ -2,7 +2,7 @@
 #
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2
+version: 2.1
 executors:
   default_executor:
     docker:
@@ -54,7 +54,7 @@ jobs:
       - run: gradle test
 
 workflows:
-  version: 2
+  version: 2.1
   build_and_test:
     jobs:
       - build
