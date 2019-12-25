@@ -8,7 +8,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath "com.sjcqs.android:config:1.0.1"
+        classpath "com.sjcqs.android:config:1.0.2"
     }
 }
 
