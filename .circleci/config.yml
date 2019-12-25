@@ -37,6 +37,10 @@ commands:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
+  publish_to_maven_local:
+    steps:
+      - checkout_and_check_dependencies
+      - run: ./gradlew clean publishToMavenLocal
 
 jobs:
   build:
@@ -50,25 +54,23 @@ jobs:
       - run: echo $(ls -l)
       - checkout_and_check_dependencies
       - run: ./gradlew test
-  publish_to_maven_local:
-    executor: default_executor
-    steps:
-      - checkout_and_check_dependencies
-      - run: ./gradlew clean publishToMavenLocal
   test_app:
     executor: android_executor
     steps:
       - checkout_and_check_dependencies
+      - publish_to_maven_local
       - run: cd test_app && ./gradlew test
   test_lib:
     executor: android_executor
     steps:
       - checkout_and_check_dependencies
+      - publish_to_maven_local
       - run: cd test_app && ./gradlew test_lib:test
   check_deprecated_apis:
     executor: android_executor
     steps:
       - checkout_and_check_dependencies
+      - publish_to_maven_local
       - run: test $(cd test_app && ./gradlew -Pandroid.debug.obsoleteApi=true | grep -c "com.sjcqs.android.config") = 0
 
 workflows:
@@ -78,13 +80,6 @@ workflows:
       - test:
           requires:
             - build
-      - publish_to_maven_local
-      - test_app:
-          requires:
-            - publish_to_maven_local
-      - test_lib:
-          requires:
-            - publish_to_maven_local
-      - check_deprecated_apis:
-          requires:
-            - publish_to_maven_local
+      - test_app
+      - test_lib
+      - check_deprecated_apis
