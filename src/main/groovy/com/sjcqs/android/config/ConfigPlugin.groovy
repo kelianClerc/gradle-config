@@ -1,11 +1,11 @@
 package com.sjcqs.android.config
 
+import com.android.build.gradle.AppExtension
 import com.android.build.gradle.LibraryExtension
+import com.android.build.gradle.api.BaseVariant
 import com.sjcqs.android.config.task.GenerateSettingsTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import com.android.build.gradle.api.BaseVariant
-import com.android.build.gradle.AppExtension
 import org.gradle.api.Task
 import org.gradle.api.logging.Logging
 
@@ -16,11 +16,11 @@ class ConfigPlugin implements Plugin<Project> {
     enum ProjectType {
 
         ANDROID_APPLICATION('com.android.application',
-                            AppExtension,
-                {extension -> return extension.applicationVariants }),
+                AppExtension,
+                { extension -> return extension.applicationVariants }),
         ANDROID_LIBRARY('com.android.library',
                 LibraryExtension,
-                {extension -> return extension.libraryVariants })
+                { extension -> return extension.libraryVariants })
 
         final String pluginId
         final Class extensionType
@@ -51,11 +51,11 @@ class ConfigPlugin implements Plugin<Project> {
         def androidExtension = project.extensions.getByType(projectType.extensionType)
         def sourceSets = androidExtension.sourceSets
         projectType.fetchVariants(androidExtension)
-                    .all { variant ->
-                        def task = createCodeGenerationTask(project, variant)
-                        variant.registerJavaGeneratingTask(task, task.outputDir())
-                        sourceSets[variant.name].java.srcDirs += [task.outputDir()]
-                    }
+                .all { variant ->
+                    def task = createCodeGenerationTask(project, variant)
+                    variant.registerJavaGeneratingTask(task, task.outputDir())
+                    sourceSets[variant.name].java.srcDirs += [task.outputDir()]
+                }
     }
 
     private Task createCodeGenerationTask(Project project, BaseVariant variant) {
@@ -66,7 +66,7 @@ class ConfigPlugin implements Plugin<Project> {
         project.tasks.create(
                 name: "generate${variant.name.capitalize()}Settings",
                 type: GenerateSettingsTask) {
-            packageName variant.generateBuildConfig.buildConfigPackageName
+            packageName variant.generateBuildConfigProvider.get().buildConfigPackageName
             flavorName variant.flavorName
             buildTypeName variant.buildType.name
             variantDirName variant.dirName

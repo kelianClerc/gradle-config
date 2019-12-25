@@ -1,20 +1,17 @@
-# Java Gradle CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-java/ for more details
-#
 version: 2.1
+
 executors:
   default_executor:
     docker:
-      # specify the version you desire here
       - image: circleci/openjdk:8-jdk
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
-    working_directory: ~/repo
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+  android_executor:
+    docker:
+      - image: circleci/android:api-29
 
     environment:
       # Customize the JVM maximum heap limit
@@ -34,30 +31,55 @@ commands:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
-      - run: gradle dependencies
+      - run: ./gradlew dependencies
 
       - save_cache:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
+  publish_to_maven_local:
+    steps:
+      - checkout_and_check_dependencies
+      - run: ./gradlew clean publishToMavenLocal
 
 jobs:
   build:
     executor: default_executor
     steps:
       - checkout_and_check_dependencies
-      - run: gradle clean assemble
+      - run: ./gradlew clean assemble
   test:
     executor: default_executor
     steps:
+      - run: echo $(ls -l)
       - checkout_and_check_dependencies
-      - run: gradle test
+      - run: ./gradlew test
+  test_app:
+    executor: android_executor
+    steps:
+      - checkout_and_check_dependencies
+      - publish_to_maven_local
+      - run: cd test_app && ./gradlew test
+  test_lib:
+    executor: android_executor
+    steps:
+      - checkout_and_check_dependencies
+      - publish_to_maven_local
+      - run: cd test_app && ./gradlew test_lib:test
+  check_deprecated_apis:
+    executor: android_executor
+    steps:
+      - checkout_and_check_dependencies
+      - publish_to_maven_local
+      - run: test $(cd test_app && ./gradlew -Pandroid.debug.obsoleteApi=true | grep -c "com.sjcqs.android.config") = 0
 
 workflows:
-  version: 2.1
   build_and_test:
     jobs:
       - build
       - test:
           requires:
             - build
+      - test_app
+      - test_lib
+      - check_deprecated_apis

@@ -4,11 +4,7 @@ import com.sjcqs.android.config.SettingsClassGenerator
 import com.sjcqs.android.config.Util
 import org.gradle.api.DefaultTask
 import org.gradle.api.logging.Logging
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputFiles
-import org.gradle.api.tasks.OutputDirectory
-import org.gradle.api.tasks.OutputFile
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 import org.yaml.snakeyaml.Yaml
 
 public class GenerateSettingsTask extends DefaultTask {
@@ -32,11 +28,11 @@ public class GenerateSettingsTask extends DefaultTask {
 
     @InputFiles
     def settingsFiles() {
-        ['default', dimensionNames, flavorName,  buildTypeName ].collect { [it, "${it}_secret"] }
+        ['default', dimensionNames, flavorName, buildTypeName].collect { [it, "${it}_secret"] }
                 .flatten()
                 .collect {
-            project.file(Util.pathJoin('config', "${it}.yml"))
-        }
+                    project.file(Util.pathJoin('config', "${it}.yml"))
+                }
     }
 
     @OutputDirectory

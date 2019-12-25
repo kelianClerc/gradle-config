@@ -1,57 +1,60 @@
 plugins {
     id 'groovy'
     id 'maven'
+    id 'maven-publish'
     id "com.gradle.plugin-publish" version "0.9.7"
 }
 
 group = 'com.sjcqs.android'
-version = '1.0.1'
+version = '1.0.2'
+ext.artifactName = 'config'
 
 sourceCompatibility = 1.6
 
 repositories {
+    maven { url 'https://maven.google.com' }
     jcenter()
-}
-
-configurations {
-    provided
-}
-
-sourceSets {
-    main {
-        compileClasspath += configurations.provided
-    }
 }
 
 dependencies {
     compile gradleApi()
     compile localGroovy()
-    provided 'com.android.tools.build:gradle:2.2.3'
     compile 'org.yaml:snakeyaml:1.14'
+    compileOnly 'com.android.tools.build:gradle:3.5.3'
 }
 
 pluginBundle {
-  website = 'https://github.com/sjcqs/gradle-config'
-  vcsUrl = 'https://github.com/sjcqs/gradle-config'
-  description = 'Gradle plugin to add multi-variants yaml settings to Android.'
-  tags = ['gradle', 'plugin', 'android', 'config']
+    website = 'https://github.com/sjcqs/gradle-config'
+    vcsUrl = 'https://github.com/sjcqs/gradle-config'
+    description = 'Gradle plugin to add multi-variants yaml settings to Android.'
+    tags = ['gradle', 'plugin', 'android', 'config']
 
-  plugins {
-    configPlugin {
-      id = 'com.sjcqs.android.config'
-      displayName = 'Gradle Config plugin for android applications and libraries.'
+    plugins {
+        configPlugin {
+            id = "${project.group}.${artifactName}"
+            displayName = 'Gradle Config plugin for android applications and libraries.'
+        }
     }
-  }
 
     mavenCoordinates {
-        groupId = "com.sjcqs.android"
-        artifactId = "config"
+        groupId = project.group
+        artifactId = artifactName
     }
 }
 
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = project.group
+            artifactId = artifactName
+            version = project.version
+            from components.java
+        }
+    }
+}
 install {
     repositories.mavenInstaller {
         pom.version = project.version
-        pom.artifactId = 'config'
+        pom.artifactId = artifactName
     }
 }
