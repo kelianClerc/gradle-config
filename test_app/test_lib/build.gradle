@@ -30,12 +30,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests.all {
+            testLogging {
+                events "passed", "failed", "skipped"
+            }
+        }
     }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    testImplementation 'junit:junit:4.12'
 }
 

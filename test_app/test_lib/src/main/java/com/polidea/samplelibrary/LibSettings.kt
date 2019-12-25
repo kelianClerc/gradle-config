@@ -6,5 +6,5 @@ class LibSettings {
         get() = "${BuildConfig.FLAVOR}_${BuildConfig.BUILD_TYPE}"
 
     val propertyValue: String
-        get() = "${Settings.lib_properties.lib_property_1}"
+        get() = Settings.lib_properties.lib_property_1
 }
