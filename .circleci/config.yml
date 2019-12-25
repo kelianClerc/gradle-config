@@ -54,7 +54,7 @@ jobs:
     executor: default_executor
     steps:
       - checkout_and_check_dependencies
-      - run: ./gradlew publishToMavenLocal
+      - run: ./gradlew clean publishToMavenLocal
   test_app:
     executor: android_executor
     steps:
@@ -69,7 +69,7 @@ jobs:
     executor: android_executor
     steps:
       - checkout_and_check_dependencies
-      - run: cd test_app && test $(./gradlew -Pandroid.debug.obsoleteApi=true | tee "$(tty)" | grep -c "com.sjcqs.android.config") = 0
+      - run: test $(cd test_app && ./gradlew -Pandroid.debug.obsoleteApi=true | grep -c "com.sjcqs.android.config") = 0
 
 workflows:
   build_and_test:
