@@ -1,0 +1,7 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+    }
+}
+
+include ':app', ':test_lib'
