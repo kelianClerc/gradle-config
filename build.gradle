@@ -20,7 +20,7 @@ dependencies {
     compile gradleApi()
     compile localGroovy()
     compile 'org.yaml:snakeyaml:1.14'
-    compileOnly 'com.android.tools.build:gradle:4.0.0-beta04'
+    compileOnly 'com.android.tools.build:gradle:4.0.0'
 }
 
 pluginBundle {
