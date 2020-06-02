@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.sjcqs.android'
-version = '1.1.0-alpha01'
+version = '1.1.0'
 ext.artifactName = 'config'
 
 sourceCompatibility = 1.6
