@@ -12,7 +12,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath "com.sjcqs.android:config:1.0.0"
+    classpath "com.sjcqs.android:config:1.1.0"
   }
 }
 
@@ -24,7 +24,7 @@ apply plugin: "com.sjcqs.android.config"
 Build script snippet for new, incubating, plugin mechanism introduced in Gradle 2.1:
 ```
 plugins {
-  id "com.sjcqs.android.config" version "1.0.0"
+  id "com.sjcqs.android.config" version "1.1.0"
 }
 ```
 
