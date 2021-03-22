@@ -66,7 +66,7 @@ class ConfigPlugin implements Plugin<Project> {
         project.tasks.create(
                 name: "generate${variant.name.capitalize()}Settings",
                 type: GenerateSettingsTask) {
-            packageName variant.generateBuildConfig.buildConfigPackageName
+            packageName variant.getGenerateBuildConfigProvider().get().buildConfigPackageName
             flavorName variant.flavorName
             buildTypeName variant.buildType.name
             variantDirName variant.dirName
